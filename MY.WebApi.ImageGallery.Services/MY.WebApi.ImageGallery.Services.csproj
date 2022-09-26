@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <RootNamespace>MY.WebApo.ImageGallery.Service</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\MY.WebApi.ImageGallery.DataLayer\MY.WebApi.ImageGallery.DataLayer.csproj" />
+      <ProjectReference Include="..\MY.WebApi.ImageGallery.DomainClasses\MY.WebApi.ImageGallery.DomainClasses.csproj" />
+    </ItemGroup>
+
+</Project>

@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MY.WebApi.ImageGallery.DataLayer\MY.WebApi.ImageGallery.DataLayer.csproj" />
+    <ProjectReference Include="..\MY.WebApi.ImageGallery.Mappings\MY.WebApi.ImageGallery.Mappings.csproj" />
+    <ProjectReference Include="..\MY.WebApi.ImageGallery.Models\MY.WebApi.ImageGallery.Models.csproj" />
+    <ProjectReference Include="..\MY.WebApi.ImageGallery.Services\MY.WebApi.ImageGallery.Services.csproj" />
+  </ItemGroup>
+
+</Project>
