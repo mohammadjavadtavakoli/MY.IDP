@@ -5,7 +5,7 @@ using MY.WebApi.ImageGallery.DomainClasses;
 namespace MY.WebApi.ImageGallery.DataLayer.Context
 
 {
-    public class ApplicationDbContext:DbContext
+    public class ApplicationDbContext:DbContext,IUnitOfWork
     {
         public ApplicationDbContext(DbContextOptions options) : base(options)
         {
