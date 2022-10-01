@@ -51,6 +51,8 @@ namespace MY.WebApi.ImageGallery.WebApp
                 app.UseSwagger();
                 // app.UseSwaggerUI();
             }
+            
+            InitializeDb(app);
 
             app.UseHttpsRedirection();
 
@@ -60,6 +62,19 @@ namespace MY.WebApi.ImageGallery.WebApp
 
             app.Run();
             
+        }
+
+        private static void InitializeDb(IApplicationBuilder app)
+        {
+            //service locator pattern
+            var scopeFactory = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>();
+            using (var scope = scopeFactory.CreateScope())
+            {
+                using (var context=scope.ServiceProvider.GetService<ApplicationDbContext>())
+                {
+                    context?.Database.Migrate();
+                }
+            }
         }
     }
 }
