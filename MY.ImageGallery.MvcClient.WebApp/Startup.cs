@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authentication.Cookies;
-namespace MY.ImageGallery
+namespace MY.ImageGallery.MvcClient.WebApp
 {
     public class Startup
     {

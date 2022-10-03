@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using MY.ImageGallery.Models;
 using System.Diagnostics;
+using MY.ImageGallery.MvcClient.WebApp.Models;
 
-namespace MY.ImageGallery.Controllers
+namespace MY.ImageGallery.MvcClient.WebApp.Controllers
 {
     public class HomeController : Controller
     {

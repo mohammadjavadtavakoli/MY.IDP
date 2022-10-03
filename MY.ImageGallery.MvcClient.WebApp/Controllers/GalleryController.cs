@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 
-namespace MY.ImageGallery.Controllers
+namespace MY.ImageGallery.MvcClient.WebApp.Controllers
 {
     [Authorize]
     public class GalleryController : Controller

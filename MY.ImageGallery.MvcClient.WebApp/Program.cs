@@ -1,4 +1,4 @@
-using MY.ImageGallery;
+using MY.ImageGallery.MvcClient.WebApp;
 
 
 var builder = WebApplication.CreateBuilder(args);

@@ -1,4 +1,4 @@
-namespace MY.ImageGallery.Models
+namespace MY.ImageGallery.MvcClient.WebApp.Models
 {
     public class ErrorViewModel
     {
