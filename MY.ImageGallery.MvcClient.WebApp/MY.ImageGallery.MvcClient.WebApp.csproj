@@ -12,4 +12,14 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.9" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Controllers" />
+    <Folder Include="Pages" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MY.ImageGallery.MvcClient.Services\MY.ImageGallery.MvcClient.Services.csproj" />
+    <ProjectReference Include="..\MY.ImageGallery.MvcClient.ViewModels\MY.ImageGallery.MvcClient.ViewModels.csproj" />
+  </ItemGroup>
+
 </Project>
