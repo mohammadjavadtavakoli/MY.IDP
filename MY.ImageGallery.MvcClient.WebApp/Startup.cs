@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authentication.Cookies;
+using MY.ImageGallery.MvcClient.Services;
+
 namespace MY.ImageGallery.MvcClient.WebApp
 {
     public class Startup
@@ -12,6 +14,7 @@ namespace MY.ImageGallery.MvcClient.WebApp
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddMvc();
             services.AddControllersWithViews();
             services.AddAuthentication(option =>
                 {
@@ -31,6 +34,9 @@ namespace MY.ImageGallery.MvcClient.WebApp
                     options.ClientSecret = "secret";
                     options.GetClaimsFromUserInfoEndpoint = true;
                 });
+            services.AddHttpContextAccessor();
+            services.AddHttpClient<IImageGalleryHttpClient,ImageGalleryHttpClient>();
+
 
         }
 
