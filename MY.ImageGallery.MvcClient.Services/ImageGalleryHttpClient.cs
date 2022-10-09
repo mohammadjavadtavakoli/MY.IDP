@@ -14,7 +14,7 @@ public class ImageGalleryHttpClient : IImageGalleryHttpClient
 
     public ImageGalleryHttpClient(HttpClient httpClient)
     {
-        httpClient.BaseAddress = new Uri("https://localhost:7001/");
+        httpClient.BaseAddress = new Uri("http://localhost:5065/");
         httpClient.DefaultRequestHeaders.Accept.Clear();
         httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         HttpClient = httpClient;

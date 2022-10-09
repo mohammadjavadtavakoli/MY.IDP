@@ -20,7 +20,7 @@ namespace MY.WebApi.ImageGallery.WebApp
         {
             // services.AddControllers();
             // services.AddEndpointsApiExplorer();
-            // services.AddSwaggerGen();
+             services.AddSwaggerGen();
 
             services.AddScoped<IUnitOfWork, ApplicationDbContext>();
             services.AddScoped<IImageService, ImageService>();
@@ -49,16 +49,19 @@ namespace MY.WebApi.ImageGallery.WebApp
             if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();
-                // app.UseSwaggerUI();
+                 app.UseSwaggerUI();
             }
             
             InitializeDb(app);
 
-            app.UseHttpsRedirection();
 
-            app.UseAuthorization();
+            app.UseHttpsRedirection();
+            
+            app.UseStaticFiles();
+
 
             app.MapControllers();
+            
 
             app.Run();
             
