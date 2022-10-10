@@ -18,21 +18,27 @@ namespace MY.ImageGallery.MvcClient.WebApp
             services.AddControllersWithViews();
             services.AddAuthentication(option =>
                 {
-                    option.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                    option.DefaultScheme = "Cookies";
                     option.DefaultChallengeScheme = "oidc";
                 })
-                .AddCookie("Cookie")
+                .AddCookie("Cookies")
                 .AddOpenIdConnect("oidc", options =>
                 {
-                    options.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                    options.SignInScheme = "Cookies";
                     options.Authority = "https://localhost:6001";
+                    options.RequireHttpsMetadata = false;
+
                     options.ClientId = "imagegalleryclient";
-                    options.Resource = "code code id_token";
+                    options.ClientSecret = "secret";
+
+                    options.ResponseType = "code";
+                    
                     options.Scope.Add("openid");
                     options.Scope.Add("profile");
-                    options.SaveTokens = true;
-                    options.ClientSecret = "secret";
+                    options.Scope.Add("offline_access");
+                    
                     options.GetClaimsFromUserInfoEndpoint = true;
+                    options.SaveTokens = true;
                 });
             services.AddHttpContextAccessor();
             services.AddHttpClient<IImageGalleryHttpClient,ImageGalleryHttpClient>();
@@ -51,7 +57,7 @@ namespace MY.ImageGallery.MvcClient.WebApp
 
             app.UseRouting();
             app.UseAuthentication();
-            app.UseAuthorization();
+       app.UseAuthorization();
 
             app.MapControllerRoute(
                 name: "default",
