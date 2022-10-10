@@ -1,5 +1,9 @@
 ﻿@model MY.ImageGallery.MvcClient.ViewModels.GalleryIndexViewModel
 
+@inject Microsoft.Extensions.Configuration.IConfiguration _configuration
+@{
+    var BaseAddress = _configuration["WebApiBaseAddress"];
+}
 <div class="bottomMarginDefault">
 </div>
 
@@ -8,7 +12,8 @@
     {
         <div class="pull-left col-md-4">
             <div>
-                <img class="thumbnailImage" src="@("https://localhost:5066/images/" + item.FileName)" />
+                <img class="thumbnailImage" src="@BaseAddress/images/@item.FileName"/>
+
             </div>
             <div>
                 <div class="h5">@item.Title</div>
