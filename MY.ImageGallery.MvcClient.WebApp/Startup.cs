@@ -39,6 +39,10 @@ namespace MY.ImageGallery.MvcClient.WebApp
                     
                     options.GetClaimsFromUserInfoEndpoint = true;
                     options.SaveTokens = true;
+                    options.SignedOutCallbackPath = "/signout-callback-oidc";
+
+
+
                 });
             services.AddHttpContextAccessor();
             services.AddHttpClient<IImageGalleryHttpClient,ImageGalleryHttpClient>();

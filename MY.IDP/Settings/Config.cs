@@ -65,6 +65,8 @@ namespace MY.IDP.Settings
                     {
                         "https://localhost:5076/signout-callback-oidc"
                     },
+                    AllowedCorsOrigins = { "https://localhost:5076" },
+
                     AllowedScopes =
                     {
                         IdentityServerConstants.StandardScopes.OpenId,
@@ -75,10 +77,11 @@ namespace MY.IDP.Settings
                     {
                         new Secret("secret".Sha256())
                     },
-                    
-                    
-                    
-                    
+                    RequireConsent = true,
+
+
+
+
                 }
             };
         }

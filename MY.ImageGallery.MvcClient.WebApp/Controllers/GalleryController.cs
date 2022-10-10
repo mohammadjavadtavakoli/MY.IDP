@@ -2,8 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using IdentityModel;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using MY.ImageGallery.MvcClient.Services;
 using MY.ImageGallery.MvcClient.ViewModels;
 using MY.WebApi.ImageGallery.Models;
@@ -11,7 +14,7 @@ using Newtonsoft.Json;
 
 namespace MY.ImageGallery.MvcClient.WebApp.Controllers
 {
-    [Authorize]
+    
     public class GalleryController : Controller
     {
         private readonly IImageGalleryHttpClient _imageGalleryHttp;
@@ -21,10 +24,11 @@ namespace MY.ImageGallery.MvcClient.WebApp.Controllers
             _imageGalleryHttp = imageGalleryHttp;
         }
 
+        [Authorize]
         [Route("index")]
-
         public async Task<IActionResult> Index()
         {
+            var identityToken = await HttpContext.GetTokenAsync(OpenIdConnectParameterNames.AccessToken);
             var response = await _imageGalleryHttp.HttpClient.GetAsync("api/Image");
             response.EnsureSuccessStatusCode();
 
@@ -66,7 +70,7 @@ namespace MY.ImageGallery.MvcClient.WebApp.Controllers
             response.EnsureSuccessStatusCode();
             return RedirectToAction("Index");
         }
-        
+
         public async Task<IActionResult> DeleteImage(Guid id)
         {
             var response = await _imageGalleryHttp.HttpClient.DeleteAsync($"api/image/{id}");
@@ -79,7 +83,7 @@ namespace MY.ImageGallery.MvcClient.WebApp.Controllers
         {
             return View();
         }
-        
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> AddImage(AddImageViewModel addImageViewModel)
@@ -109,6 +113,14 @@ namespace MY.ImageGallery.MvcClient.WebApp.Controllers
 
             return RedirectToAction("Index");
         }
-        
+
+        public async Task Logout()
+        {
+            await HttpContext.SignOutAsync("oidc");
+            await HttpContext.SignOutAsync("Cookies");
+
+
+        }
+      
     }
 }
