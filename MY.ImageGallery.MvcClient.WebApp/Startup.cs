@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Authentication.Cookies;
+﻿using System.IdentityModel.Tokens.Jwt;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using MY.ImageGallery.MvcClient.Services;
 
 namespace MY.ImageGallery.MvcClient.WebApp
@@ -8,6 +10,7 @@ namespace MY.ImageGallery.MvcClient.WebApp
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+            JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
         }
 
         public IConfiguration Configuration { get; }
@@ -32,27 +35,27 @@ namespace MY.ImageGallery.MvcClient.WebApp
                     options.ClientSecret = "secret";
 
                     options.ResponseType = "code";
-                    
+
                     options.Scope.Add("openid");
                     options.Scope.Add("profile");
                     options.Scope.Add("offline_access");
-                    
+                    options.Scope.Add("address");
+
                     options.GetClaimsFromUserInfoEndpoint = true;
                     options.SaveTokens = true;
                     options.SignedOutCallbackPath = "/signout-callback-oidc";
 
-
-
+                    options.ClaimActions.Remove("amr");
+                    options.ClaimActions.DeleteClaim("sid");
+                    options.ClaimActions.DeleteClaim("idp");
+                    // options.ClaimActions.DeleteClaim("address");
                 });
             services.AddHttpContextAccessor();
-            services.AddHttpClient<IImageGalleryHttpClient,ImageGalleryHttpClient>();
-
-
+            services.AddHttpClient<IImageGalleryHttpClient, ImageGalleryHttpClient>();
         }
 
         public void Configure(WebApplication app, IWebHostEnvironment env)
         {
-            
             app.UseExceptionHandler("/Home/Error");
             // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
             app.UseHsts();
@@ -61,7 +64,7 @@ namespace MY.ImageGallery.MvcClient.WebApp
 
             app.UseRouting();
             app.UseAuthentication();
-       app.UseAuthorization();
+            app.UseAuthorization();
 
             app.MapControllerRoute(
                 name: "default",
@@ -69,6 +72,5 @@ namespace MY.ImageGallery.MvcClient.WebApp
 
             app.Run();
         }
-    } 
+    }
 }
-

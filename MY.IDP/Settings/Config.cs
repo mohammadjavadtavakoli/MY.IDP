@@ -21,6 +21,7 @@ namespace MY.IDP.Settings
                     {
                         new Claim("given_name", "MohammadJavad"),
                         new Claim("family_name", "Tavakoli"),
+                        new Claim("address","Main street")
                     }
                 },
                 new TestUser()
@@ -33,6 +34,7 @@ namespace MY.IDP.Settings
                     {
                         new Claim("given_name", "User 2"),
                         new Claim("family_name", "Test"),
+                        new Claim("address", "Big Street 2")
                     }
                 }
             };
@@ -42,8 +44,9 @@ namespace MY.IDP.Settings
         {
             return new List<IdentityResource>
             {
-                new IdentityResources.OpenId(),
-                new IdentityResources.Profile()
+                new IdentityResources.OpenId(), 
+                new IdentityResources.Profile(),
+                new IdentityResources.Address()
             };
         }
 
@@ -70,7 +73,8 @@ namespace MY.IDP.Settings
                     AllowedScopes =
                     {
                         IdentityServerConstants.StandardScopes.OpenId,
-                        IdentityServerConstants.StandardScopes.Profile
+                        IdentityServerConstants.StandardScopes.Profile,
+                        IdentityServerConstants.StandardScopes.Address
                     },
                     AllowOfflineAccess = true,
                     ClientSecrets =

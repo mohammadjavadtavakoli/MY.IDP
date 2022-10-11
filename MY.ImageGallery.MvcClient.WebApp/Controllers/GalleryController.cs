@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using IdentityModel;
+using IdentityModel.Client;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -11,17 +12,45 @@ using MY.ImageGallery.MvcClient.Services;
 using MY.ImageGallery.MvcClient.ViewModels;
 using MY.WebApi.ImageGallery.Models;
 using Newtonsoft.Json;
+using NuGet.Common;
 
 namespace MY.ImageGallery.MvcClient.WebApp.Controllers
 {
-    
     public class GalleryController : Controller
     {
         private readonly IImageGalleryHttpClient _imageGalleryHttp;
+        private readonly IConfiguration _configuration;
+        private readonly HttpClient _httpClient;
 
-        public GalleryController(IImageGalleryHttpClient imageGalleryHttp)
+        public GalleryController(IImageGalleryHttpClient imageGalleryHttp, IConfiguration configuration,
+            HttpClient httpClient)
         {
             _imageGalleryHttp = imageGalleryHttp;
+            _configuration = configuration;
+            _httpClient = httpClient;
+        }
+
+        [Authorize]
+        public async Task<IActionResult> OrderFrame()
+        {
+            var disco = await _httpClient.GetDiscoveryDocumentAsync(_configuration["IDPBaseAddress"]);
+
+            var accessToken = await HttpContext.GetTokenAsync(OpenIdConnectParameterNames.AccessToken);
+            
+            var response = await _httpClient.GetUserInfoAsync(new UserInfoRequest
+            {
+                Address = disco.UserInfoEndpoint,
+                Token = accessToken
+            });
+
+            if (response.IsError)
+            {
+                throw new Exception("problem accessing the user info", response.Exception);
+            }
+
+            var address = response.Claims.FirstOrDefault(x => x.Type == "address")?.Value;
+
+            return View(new OrderFrameViewModel(address));
         }
 
         [Authorize]
@@ -29,6 +58,11 @@ namespace MY.ImageGallery.MvcClient.WebApp.Controllers
         public async Task<IActionResult> Index()
         {
             var identityToken = await HttpContext.GetTokenAsync(OpenIdConnectParameterNames.AccessToken);
+
+            foreach (var item in User.Claims)
+            {
+            }
+
             var response = await _imageGalleryHttp.HttpClient.GetAsync("api/Image");
             response.EnsureSuccessStatusCode();
 
@@ -116,11 +150,8 @@ namespace MY.ImageGallery.MvcClient.WebApp.Controllers
 
         public async Task Logout()
         {
-            await HttpContext.SignOutAsync("oidc");
             await HttpContext.SignOutAsync("Cookies");
-
-
+            await HttpContext.SignOutAsync("oidc");
         }
-      
     }
 }
