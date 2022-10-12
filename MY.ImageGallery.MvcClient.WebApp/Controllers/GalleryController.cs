@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using IdentityModel;
 using IdentityModel.Client;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
@@ -70,6 +72,14 @@ namespace MY.ImageGallery.MvcClient.WebApp.Controllers
             var galleryIndexViewModel = new GalleryIndexViewModel(
                 JsonConvert.DeserializeObject<IList<ImageModel>>(imagesAsString).ToList());
             return View(galleryIndexViewModel);
+        }
+
+ 
+        [Route("welcome")]
+        public async Task<IActionResult> welcome()
+        {
+           
+            return View("welcome");
         }
 
         public async Task<IActionResult> EditImage(Guid id)
@@ -150,8 +160,17 @@ namespace MY.ImageGallery.MvcClient.WebApp.Controllers
 
         public async Task Logout()
         {
-            await HttpContext.SignOutAsync("Cookies");
-            await HttpContext.SignOutAsync("oidc");
+            
+          
+           var prop = new AuthenticationProperties()
+           {
+               RedirectUri = "https://localhost:5076/welcome"
+           };
+
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            await HttpContext.SignOutAsync("oidc", prop);
         }
+      
+
     }
 }
