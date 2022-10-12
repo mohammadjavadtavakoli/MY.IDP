@@ -21,20 +21,23 @@ namespace MY.IDP.Settings
                     {
                         new Claim("given_name", "MohammadJavad"),
                         new Claim("family_name", "Tavakoli"),
-                        new Claim("address","Main street")
+                        new Claim("address","Main street"),
+                        new Claim("role","PayingUser"),
                     }
                 },
                 new TestUser()
                 {
                     SubjectId = "b7539694-97e7-4dfe-84da-b4256e1ff5c7",
-                    Username = "User 2",
-                    Password = "password",
+                    Username = "User2",
+                    Password = "123",
 
                     Claims = new List<Claim>
                     {
                         new Claim("given_name", "User 2"),
                         new Claim("family_name", "Test"),
-                        new Claim("address", "Big Street 2")
+                        new Claim("address", "Big Street 2"),
+                        new Claim("role","FreeUser")
+
                     }
                 }
             };
@@ -44,10 +47,15 @@ namespace MY.IDP.Settings
         {
             return new List<IdentityResource>
             {
-                new IdentityResources.OpenId(), 
+                new IdentityResources.OpenId(),
                 new IdentityResources.Profile(),
-                new IdentityResources.Address()
+                new IdentityResources.Address(),
+                new IdentityResource(
+                    name: "roles",
+                    userClaims: new List<string>() { "role" },
+                    displayName: "Your role(s)")
             };
+
         }
 
         public static IEnumerable<Client> GetClients()
@@ -74,7 +82,8 @@ namespace MY.IDP.Settings
                     {
                         IdentityServerConstants.StandardScopes.OpenId,
                         IdentityServerConstants.StandardScopes.Profile,
-                        IdentityServerConstants.StandardScopes.Address
+                        IdentityServerConstants.StandardScopes.Address,
+                        "roles"
                     },
                     AllowOfflineAccess = true,
                     ClientSecrets =

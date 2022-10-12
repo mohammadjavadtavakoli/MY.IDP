@@ -1,6 +1,8 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
+using IdentityModel;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.IdentityModel.Tokens;
 using MY.ImageGallery.MvcClient.Services;
 
 namespace MY.ImageGallery.MvcClient.WebApp
@@ -40,6 +42,10 @@ namespace MY.ImageGallery.MvcClient.WebApp
                     options.Scope.Add("profile");
                     options.Scope.Add("offline_access");
                     options.Scope.Add("address");
+                    options.Scope.Add("roles");
+                    
+                    //Because it is not in the Microsoft map 
+                    options.ClaimActions.MapUniqueJsonKey(claimType:"role",jsonKey:"role");
 
                     options.GetClaimsFromUserInfoEndpoint = true;
                     options.SaveTokens = true;
@@ -48,6 +54,16 @@ namespace MY.ImageGallery.MvcClient.WebApp
                     options.ClaimActions.Remove("amr");
                     options.ClaimActions.DeleteClaim("sid");
                     options.ClaimActions.DeleteClaim("idp");
+
+                    // It specifies how to validate the token received from IDP
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        NameClaimType = JwtClaimTypes.GivenName,
+                        RoleClaimType = JwtClaimTypes.Role
+                    };
+
+                    options.AccessDeniedPath = "/Account/AccessDenied";
+
                     // options.ClaimActions.DeleteClaim("address");
                 });
             services.AddHttpContextAccessor();

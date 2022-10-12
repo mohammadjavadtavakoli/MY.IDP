@@ -13,11 +13,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers" />
-    <Folder Include="Pages" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\MY.ImageGallery.MvcClient.Services\MY.ImageGallery.MvcClient.Services.csproj" />
     <ProjectReference Include="..\MY.ImageGallery.MvcClient.ViewModels\MY.ImageGallery.MvcClient.ViewModels.csproj" />
   </ItemGroup>
@@ -81,6 +76,7 @@
     <_ContentIncludedByDefault Remove="wwwroot\lib\jquery\dist\jquery.min.js" />
     <_ContentIncludedByDefault Remove="wwwroot\lib\jquery\dist\jquery.min.map" />
     <_ContentIncludedByDefault Remove="wwwroot\lib\jquery\LICENSE.txt" />
+    <_ContentIncludedByDefault Remove="Pages\Authorization\AccessDenied.cshtml" />
   </ItemGroup>
 
 </Project>

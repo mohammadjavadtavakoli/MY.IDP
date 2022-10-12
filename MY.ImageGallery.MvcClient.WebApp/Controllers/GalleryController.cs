@@ -30,7 +30,7 @@ namespace MY.ImageGallery.MvcClient.WebApp.Controllers
             _httpClient = httpClient;
         }
 
-        [Authorize]
+        [Authorize(Roles = "PayingUser")]
         public async Task<IActionResult> OrderFrame()
         {
             var disco = await _httpClient.GetDiscoveryDocumentAsync(_configuration["IDPBaseAddress"]);

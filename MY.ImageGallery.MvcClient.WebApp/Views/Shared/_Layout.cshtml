@@ -36,9 +36,12 @@
                         <a asp-area="" asp-controller="Gallery" asp-action="Logout">Logout</a>
                     </li>
                 }
-                <li>
-                    <a asp-area="" asp-controller="Gallery" asp-action="OrderFrame">Order a framed picture</a>
-                </li>
+                @if (User.IsInRole("PayingUser"))
+                {
+                    <li>
+                        <a asp-area="" asp-controller="Gallery" asp-action="OrderFrame">Order a framed picture</a>
+                    </li>
+                }
 
             </ul>
         </div>
