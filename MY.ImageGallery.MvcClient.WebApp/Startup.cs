@@ -2,6 +2,7 @@
 using IdentityModel;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.CodeAnalysis.Options;
 using Microsoft.IdentityModel.Tokens;
 using MY.ImageGallery.MvcClient.Services;
 
@@ -26,7 +27,10 @@ namespace MY.ImageGallery.MvcClient.WebApp
                     option.DefaultScheme = "Cookies";
                     option.DefaultChallengeScheme = "oidc";
                 })
-                .AddCookie("Cookies")
+                .AddCookie("Cookies", option =>
+                {
+                    option.AccessDeniedPath = "/Account/AccessDenied";
+                })
                 .AddOpenIdConnect("oidc", options =>
                 {
                     options.SignInScheme = "Cookies";
@@ -43,9 +47,10 @@ namespace MY.ImageGallery.MvcClient.WebApp
                     options.Scope.Add("offline_access");
                     options.Scope.Add("address");
                     options.Scope.Add("roles");
-                    
+                    options.Scope.Add("imagegalleryapi");
+
                     //Because it is not in the Microsoft map 
-                    options.ClaimActions.MapUniqueJsonKey(claimType:"role",jsonKey:"role");
+                    options.ClaimActions.MapJsonKey(claimType: "role", jsonKey: "role"); // for having 2 or more roles
 
                     options.GetClaimsFromUserInfoEndpoint = true;
                     options.SaveTokens = true;
@@ -59,10 +64,10 @@ namespace MY.ImageGallery.MvcClient.WebApp
                     options.TokenValidationParameters = new TokenValidationParameters
                     {
                         NameClaimType = JwtClaimTypes.GivenName,
-                        RoleClaimType = JwtClaimTypes.Role
+                        RoleClaimType = JwtClaimTypes.Role,
+                        
                     };
-
-                    options.AccessDeniedPath = "/Account/AccessDenied";
+                    
 
                     // options.ClaimActions.DeleteClaim("address");
                 });

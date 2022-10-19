@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using IdentityServer4.AccessTokenValidation;
 using Microsoft.EntityFrameworkCore;
 using MY.WebApi.ImageGallery.DataLayer.Context;
 using MY.WebApi.ImageGallery.Mappings;
@@ -37,6 +38,15 @@ namespace MY.WebApi.ImageGallery.WebApp
                         serverDbContextOptionsBuilder.EnableRetryOnFailure();
                     });
             });
+            services.AddAuthentication(defaultScheme: IdentityServerAuthenticationDefaults.AuthenticationScheme)
+                .AddIdentityServerAuthentication(options =>
+                {
+                    options.Authority = Configuration["IDPBaseAddress"];
+                    //check audience token(aud) equal to imagegalleryapi
+                    options.ApiName = "imagegalleryapi";
+                    
+
+                });
             services.AddMvc();
 
             services.AddAutoMapper(typeof(ImageMappingsProfile).GetTypeInfo().Assembly);
@@ -54,7 +64,9 @@ namespace MY.WebApi.ImageGallery.WebApp
             
             InitializeDb(app);
 
-
+            app.UseAuthentication();
+            app.UseAuthorization();
+            
             app.UseHttpsRedirection();
             
             app.UseStaticFiles();

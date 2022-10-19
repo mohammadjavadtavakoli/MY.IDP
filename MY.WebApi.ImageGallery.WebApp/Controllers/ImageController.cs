@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net.Mime;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MY.WebApi.ImageGallery.Models;
@@ -13,6 +14,7 @@ using MY.WebApi.ImageGallery.DomainClasses;
 namespace MY.WebApi.ImageGallery.WebApp.Controllers
 {
     [Route("api/[controller]")]
+    [Authorize]
     [ApiController]
     public class ImageController : ControllerBase
     {

@@ -43,6 +43,7 @@ namespace MY.IDP.Settings
             };
         }
 
+        //scope
         public static IEnumerable<IdentityResource> GetIdentityResource()
         {
             return new List<IdentityResource>
@@ -53,9 +54,25 @@ namespace MY.IDP.Settings
                 new IdentityResource(
                     name: "roles",
                     userClaims: new List<string>() { "role" },
-                    displayName: "Your role(s)")
+                    displayName: "Your role(s)"),
+                new IdentityResource(
+                    name: "imagegalleryapi",
+                    userClaims: new List<string>() { "role" },
+                    displayName: "ImageGalleryAPI")
+                    
             };
 
+        }
+        // api-related resources (scopes)
+        public static IEnumerable<ApiResource> GetApiResources()
+        {
+            return new List<ApiResource>
+            {
+                new ApiResource(
+                    name: "imagegalleryapi",
+                    userClaims: new List<string>() { "role" },
+                    displayName: "ImageGalleryAPI")
+            };
         }
 
         public static IEnumerable<Client> GetClients()
@@ -83,7 +100,8 @@ namespace MY.IDP.Settings
                         IdentityServerConstants.StandardScopes.OpenId,
                         IdentityServerConstants.StandardScopes.Profile,
                         IdentityServerConstants.StandardScopes.Address,
-                        "roles"
+                        "roles",
+                        "imagegalleryapi"
                     },
                     AllowOfflineAccess = true,
                     ClientSecrets =

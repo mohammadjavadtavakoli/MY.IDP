@@ -38,7 +38,7 @@ namespace MY.ImageGallery.MvcClient.WebApp.Controllers
             var disco = await _httpClient.GetDiscoveryDocumentAsync(_configuration["IDPBaseAddress"]);
 
             var accessToken = await HttpContext.GetTokenAsync(OpenIdConnectParameterNames.AccessToken);
-            
+
             var response = await _httpClient.GetUserInfoAsync(new UserInfoRequest
             {
                 Address = disco.UserInfoEndpoint,
@@ -65,7 +65,9 @@ namespace MY.ImageGallery.MvcClient.WebApp.Controllers
             {
             }
 
-            var response = await _imageGalleryHttp.HttpClient.GetAsync("api/Image");
+            var httpClient = await _imageGalleryHttp.GetHttpClientAsync();
+            var response = await httpClient.GetAsync("api/image");
+
             response.EnsureSuccessStatusCode();
 
             var imagesAsString = await response.Content.ReadAsStringAsync();
@@ -74,17 +76,17 @@ namespace MY.ImageGallery.MvcClient.WebApp.Controllers
             return View(galleryIndexViewModel);
         }
 
- 
+
         [Route("welcome")]
         public async Task<IActionResult> welcome()
         {
-           
             return View("welcome");
         }
 
         public async Task<IActionResult> EditImage(Guid id)
         {
-            var response = await _imageGalleryHttp.HttpClient.GetAsync($"api/image/{id}");
+            var httpclient = await _imageGalleryHttp.GetHttpClientAsync();
+            var response = await httpclient.GetAsync($"api/image/{id}");
             response.EnsureSuccessStatusCode();
 
             var imageAsString = await response.Content.ReadAsStringAsync();
@@ -108,7 +110,8 @@ namespace MY.ImageGallery.MvcClient.WebApp.Controllers
 
             var imageForUpdate = new ImageForUpdateModel { Title = editImageViewModel.Title };
             var serializedImageForUpdate = JsonConvert.SerializeObject(imageForUpdate);
-            var response = await _imageGalleryHttp.HttpClient.PutAsync(
+            var httpclient = await _imageGalleryHttp.GetHttpClientAsync();
+            var response = await httpclient.PutAsync(
                 $"api/image/{editImageViewModel.Id}",
                 new StringContent(serializedImageForUpdate, System.Text.Encoding.Unicode, "application/json"));
             response.EnsureSuccessStatusCode();
@@ -117,7 +120,8 @@ namespace MY.ImageGallery.MvcClient.WebApp.Controllers
 
         public async Task<IActionResult> DeleteImage(Guid id)
         {
-            var response = await _imageGalleryHttp.HttpClient.DeleteAsync($"api/image/{id}");
+            var httpclient = await _imageGalleryHttp.GetHttpClientAsync();
+            var response = await httpclient.DeleteAsync($"api/image/{id}");
             response.EnsureSuccessStatusCode();
 
             return RedirectToAction("Index");
@@ -150,7 +154,8 @@ namespace MY.ImageGallery.MvcClient.WebApp.Controllers
             }
 
             var serializedImageForCreation = JsonConvert.SerializeObject(imageForCreation);
-            var response = await _imageGalleryHttp.HttpClient.PostAsync(
+            var httplient = await _imageGalleryHttp.GetHttpClientAsync();
+            var response = await httplient.PostAsync(
                 $"api/images",
                 new StringContent(serializedImageForCreation, System.Text.Encoding.Unicode, "application/json"));
             response.EnsureSuccessStatusCode();
@@ -160,17 +165,13 @@ namespace MY.ImageGallery.MvcClient.WebApp.Controllers
 
         public async Task Logout()
         {
-            
-          
-           var prop = new AuthenticationProperties()
-           {
-               RedirectUri = "https://localhost:5076/welcome"
-           };
+            var prop = new AuthenticationProperties()
+            {
+                RedirectUri = "https://localhost:5076/welcome"
+            };
 
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             await HttpContext.SignOutAsync("oidc", prop);
         }
-      
-
     }
 }
