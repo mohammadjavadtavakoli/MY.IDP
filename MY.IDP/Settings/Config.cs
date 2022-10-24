@@ -23,6 +23,7 @@ namespace MY.IDP.Settings
                         new Claim("family_name", "Tavakoli"),
                         new Claim("address","Main street"),
                         new Claim("role","PayingUser"),
+
                     }
                 },
                 new TestUser()
@@ -54,24 +55,35 @@ namespace MY.IDP.Settings
                 new IdentityResource(
                     name: "roles",
                     userClaims: new List<string>() { "role" },
-                    displayName: "Your role(s)"),
-                new IdentityResource(
-                    name: "imagegalleryapi",
-                    userClaims: new List<string>() { "role" },
-                    displayName: "ImageGalleryAPI")
-                    
+                    displayName: "Your role(s)")
+                
             };
 
         }
         // api-related resources (scopes)
+        
         public static IEnumerable<ApiResource> GetApiResources()
         {
+           
             return new List<ApiResource>
             {
-                new ApiResource(
-                    name: "imagegalleryapi",
-                    userClaims: new List<string>() { "role" },
-                    displayName: "ImageGalleryAPI")
+                new ApiResource("imagegalleryapi", "ERP BACKEND")
+                {
+                    Scopes = new List<string>()
+                    {
+                        "imagegalleryapi.access"
+                    }
+                    
+                }
+            };
+        }
+        
+        public static IEnumerable<ApiScope> GetApiScopes()
+        {
+            return new[]
+            {
+                new ApiScope(name: "imagegalleryapi.access",   displayName: "Access API Backend")
+                
             };
         }
 
@@ -84,7 +96,7 @@ namespace MY.IDP.Settings
                     
                     ClientName = "Image Gallery",
                     ClientId = "imagegalleryclient",
-                    AllowedGrantTypes = GrantTypes.Code,
+                    AllowedGrantTypes = GrantTypes.Hybrid,
                     RedirectUris = new List<string>()
                     {
                         "https://localhost:5076/signin-oidc"
@@ -101,7 +113,7 @@ namespace MY.IDP.Settings
                         IdentityServerConstants.StandardScopes.Profile,
                         IdentityServerConstants.StandardScopes.Address,
                         "roles",
-                        "imagegalleryapi"
+                        "imagegalleryapi.access"
                     },
                     AllowOfflineAccess = true,
                     ClientSecrets =
@@ -109,6 +121,9 @@ namespace MY.IDP.Settings
                         new Secret("secret".Sha256())
                     },
                     RequireConsent = true,
+                    RequirePkce = false,
+                    
+
 
 
 

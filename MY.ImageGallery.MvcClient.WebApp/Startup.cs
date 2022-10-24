@@ -40,14 +40,15 @@ namespace MY.ImageGallery.MvcClient.WebApp
                     options.ClientId = "imagegalleryclient";
                     options.ClientSecret = "secret";
 
-                    options.ResponseType = "code";
+                    options.ResponseType = "code id_token";
+
 
                     options.Scope.Add("openid");
                     options.Scope.Add("profile");
-                    options.Scope.Add("offline_access");
+                    //options.Scope.Add("offline_access");
                     options.Scope.Add("address");
                     options.Scope.Add("roles");
-                    options.Scope.Add("imagegalleryapi");
+                    options.Scope.Add("imagegalleryapi.access");
 
                     //Because it is not in the Microsoft map 
                     options.ClaimActions.MapJsonKey(claimType: "role", jsonKey: "role"); // for having 2 or more roles

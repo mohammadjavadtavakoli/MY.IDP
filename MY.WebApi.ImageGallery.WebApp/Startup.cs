@@ -41,9 +41,10 @@ namespace MY.WebApi.ImageGallery.WebApp
             services.AddAuthentication(defaultScheme: IdentityServerAuthenticationDefaults.AuthenticationScheme)
                 .AddIdentityServerAuthentication(options =>
                 {
-                    options.Authority = Configuration["IDPBaseAddress"];
+                    options.Authority = "https://localhost:6001/";
                     //check audience token(aud) equal to imagegalleryapi
                     options.ApiName = "imagegalleryapi";
+                    // options.ApiSecret = "apisecret";
                     
 
                 });
@@ -63,11 +64,11 @@ namespace MY.WebApi.ImageGallery.WebApp
             }
             
             InitializeDb(app);
+            
+            app.UseHttpsRedirection();
 
             app.UseAuthentication();
             app.UseAuthorization();
-            
-            app.UseHttpsRedirection();
             
             app.UseStaticFiles();
 
