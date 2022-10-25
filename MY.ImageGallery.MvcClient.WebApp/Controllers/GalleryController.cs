@@ -59,14 +59,22 @@ namespace MY.ImageGallery.MvcClient.WebApp.Controllers
         [Route("index")]
         public async Task<IActionResult> Index()
         {
+            
             var identityToken = await HttpContext.GetTokenAsync(OpenIdConnectParameterNames.AccessToken);
 
             foreach (var item in User.Claims)
             {
             }
 
+
             var httpClient = await _imageGalleryHttp.GetHttpClientAsync();
             var response = await httpClient.GetAsync("api/image");
+
+            if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized ||
+                response.StatusCode == System.Net.HttpStatusCode.Forbidden)
+            {
+                return RedirectToAction("AccessDenied", "Account");
+            }
 
             response.EnsureSuccessStatusCode();
 

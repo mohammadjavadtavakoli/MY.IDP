@@ -32,7 +32,9 @@ namespace MY.WebApi.ImageGallery.WebApp.Controllers
         [HttpGet]
         public async Task<IActionResult> GetImages()
         {
-            var images = await _imageService.GetImagesAsync();
+            var ownerId = this.User.Claims.FirstOrDefault(claim => claim.Type == "sub").Value;
+            var images = await _imageService.GetImagesAsync(ownerId);
+            
             var imageToReturn = _mapper.Map<IEnumerable<ImageModel>>(images);
             return Ok(imageToReturn);
         }

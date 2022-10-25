@@ -8,7 +8,7 @@ namespace MY.WebApo.ImageGallery.Service
     {
         Task<bool> ImageExistsAsync(Guid id);
         Task<Image> GetImageAsync(Guid id);
-        Task<List<Image>> GetImagesAsync();
+        Task<List<Image>> GetImagesAsync(string ownerId);
         Task<Image> AddImageAsync(Image image);
         Task UpdateImageAsync(Image image);
         Task DeleteImageAsync(Image image);
@@ -35,9 +35,9 @@ namespace MY.WebApo.ImageGallery.Service
             return _images.FirstOrDefaultAsync(i => i.Id == id);
         }
 
-        public Task<List<Image>> GetImagesAsync()
+        public Task<List<Image>> GetImagesAsync(string ownerId)
         {
-            return _images.OrderBy(i => i.Title).ToListAsync();
+            return _images.Where(x=>x.OwnerId==ownerId).OrderBy(i => i.Title).ToListAsync();
         }
 
         public async Task<Image> AddImageAsync(Image image)
