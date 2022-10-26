@@ -29,7 +29,7 @@ namespace MY.IDP.Settings
                 new TestUser()
                 {
                     SubjectId = "b7539694-97e7-4dfe-84da-b4256e1ff5c7",
-                    Username = "User2",
+                    Username = "321",
                     Password = "123",
 
                     Claims = new List<Claim>
@@ -67,7 +67,7 @@ namespace MY.IDP.Settings
            
             return new List<ApiResource>
             {
-                new ApiResource("imagegalleryapi", "ERP BACKEND")
+                new ApiResource("imagegalleryapi", "ERP BACKEND",new List<string> {"role" })
                 {
                     Scopes = new List<string>()
                     {

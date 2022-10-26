@@ -52,7 +52,7 @@ namespace MY.ImageGallery.MvcClient.WebApp
                     options.Scope.Add("imagegalleryapi.access");
 
                     //Because it is not in the Microsoft map 
-                    options.ClaimActions.MapJsonKey(claimType: "role", jsonKey: "role"); // for having 2 or more roles
+                     options.ClaimActions.MapJsonKey(claimType: "role", jsonKey: "role"); // for having 2 or more roles
 
                     options.GetClaimsFromUserInfoEndpoint = true;
                     options.SaveTokens = true;

@@ -51,13 +51,16 @@ namespace MY.WebApi.ImageGallery.WebApp.Controllers
             var imageReturn = _mapper.Map<ImageModel>(image);
             return Ok(imageReturn);
         }
-        [HttpPost]
+        [HttpPost(Name = "image")]
+        [Authorize(Roles = "PayingUser")]
         public async Task<IActionResult> CreateImage([FromBody] ImageForCreationModel imageForCreationModel)
         {
             if (imageForCreationModel == null)
             {
                 return BadRequest();
             }
+
+            var OwnerId = this.User.Claims.FirstOrDefault(x => x.Type == "sub").Value;
 
             if (!ModelState.IsValid)
             {
@@ -75,6 +78,7 @@ namespace MY.WebApi.ImageGallery.WebApp.Controllers
             System.IO.File.WriteAllBytes(fullFilePath, imageForCreationModel.Bytes);
 
             imageEntity.FileName = fileName;
+            imageEntity.OwnerId = OwnerId;
 
             await _imageService.AddImageAsync(imageEntity);
 

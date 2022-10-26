@@ -59,7 +59,8 @@ namespace MY.ImageGallery.MvcClient.WebApp.Controllers
         [Route("index")]
         public async Task<IActionResult> Index()
         {
-            
+            var result = this.User.Claims;
+
             var identityToken = await HttpContext.GetTokenAsync(OpenIdConnectParameterNames.AccessToken);
 
             foreach (var item in User.Claims)
@@ -142,6 +143,7 @@ namespace MY.ImageGallery.MvcClient.WebApp.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "PayingUser")]
         public async Task<IActionResult> AddImage(AddImageViewModel addImageViewModel)
         {
             if (!ModelState.IsValid)
@@ -164,7 +166,7 @@ namespace MY.ImageGallery.MvcClient.WebApp.Controllers
             var serializedImageForCreation = JsonConvert.SerializeObject(imageForCreation);
             var httplient = await _imageGalleryHttp.GetHttpClientAsync();
             var response = await httplient.PostAsync(
-                $"api/images",
+                $"api/image",
                 new StringContent(serializedImageForCreation, System.Text.Encoding.Unicode, "application/json"));
             response.EnsureSuccessStatusCode();
 
