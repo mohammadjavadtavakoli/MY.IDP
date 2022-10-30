@@ -23,6 +23,8 @@ namespace MY.IDP.Settings
                         new Claim("family_name", "Tavakoli"),
                         new Claim("address","Main street"),
                         new Claim("role","PayingUser"),
+                        new Claim("subscriptionlevel","PayingUser"),
+                        new Claim("country","ir")
 
                     }
                 },
@@ -37,7 +39,9 @@ namespace MY.IDP.Settings
                         new Claim("given_name", "User 2"),
                         new Claim("family_name", "Test"),
                         new Claim("address", "Big Street 2"),
-                        new Claim("role","FreeUser")
+                        new Claim("role","FreeUser"),
+                        new Claim("subscriptionlevel","FeeUser"),
+                        new Claim("country","be")
 
                     }
                 }
@@ -55,7 +59,15 @@ namespace MY.IDP.Settings
                 new IdentityResource(
                     name: "roles",
                     userClaims: new List<string>() { "role" },
-                    displayName: "Your role(s)")
+                    displayName: "Your role(s)"),
+                new IdentityResource(
+                    name: "country",
+                    userClaims: new List<string>() { "country" },
+                    displayName: "The country you're living in"),
+                new IdentityResource(
+                    name: "subscriptionlevel",
+                    userClaims: new List<string>() { "subscriptionlevel" },
+                    displayName: "Your subscription level")
                 
             };
 
@@ -113,7 +125,9 @@ namespace MY.IDP.Settings
                         IdentityServerConstants.StandardScopes.Profile,
                         IdentityServerConstants.StandardScopes.Address,
                         "roles",
-                        "imagegalleryapi.access"
+                        "imagegalleryapi.access",
+                        "country",
+                        "subscriptionlevel"
                     },
                     AllowOfflineAccess = true,
                     ClientSecrets =
