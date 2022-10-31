@@ -12,6 +12,7 @@ namespace MY.WebApo.ImageGallery.Service
         Task<Image> AddImageAsync(Image image);
         Task UpdateImageAsync(Image image);
         Task DeleteImageAsync(Image image);
+        Task<bool> IsImageOwnerAsyn(Guid id, string ownerid);
     }
     
     public class ImageService:IImageService
@@ -56,6 +57,11 @@ namespace MY.WebApo.ImageGallery.Service
         {
             _images.Remove(image);
             await _uow.SaveChangesAsync();
+        }
+
+        public Task<bool> IsImageOwnerAsyn(Guid id, string ownerid)
+        {
+          return  _images.AnyAsync(x => x.Id == id && x.OwnerId == ownerid );
         }
     }
 }

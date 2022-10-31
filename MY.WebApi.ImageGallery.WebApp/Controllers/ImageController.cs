@@ -38,6 +38,7 @@ namespace MY.WebApi.ImageGallery.WebApp.Controllers
             var imageToReturn = _mapper.Map<IEnumerable<ImageModel>>(images);
             return Ok(imageToReturn);
         }
+        [Authorize(Policy = "MustOwnImage")]
 
         [HttpGet("{id}", Name = "GetImage")]
         public async Task<IActionResult> GetImage(Guid id)
