@@ -124,12 +124,21 @@ namespace MY.IDP.Settings
                         IdentityServerConstants.StandardScopes.OpenId,
                         IdentityServerConstants.StandardScopes.Profile,
                         IdentityServerConstants.StandardScopes.Address,
+                        IdentityServerConstants.StandardScopes.OfflineAccess,
                         "roles",
                         "imagegalleryapi.access",
                         "country",
                         "subscriptionlevel"
                     },
+                     
+                    AuthorizationCodeLifetime=300,
+                    AccessTokenLifetime = 3600,
+                    
                     AllowOfflineAccess = true,
+                    // AbsoluteRefreshTokenLifetime = 2592000 , //Defaults to 2592000 seconds / 30 days
+                    // RefreshTokenExpiration = TokenExpiration.Sliding,
+                    UpdateAccessTokenClaimsOnRefresh = true,
+                    
                     ClientSecrets =
                     {
                         new Secret("secret".Sha256())

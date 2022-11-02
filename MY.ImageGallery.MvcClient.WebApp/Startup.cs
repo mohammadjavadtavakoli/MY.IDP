@@ -49,6 +49,8 @@ namespace MY.ImageGallery.MvcClient.WebApp
                     options.Scope.Add("subscriptionlevel");
 
                     options.Scope.Add("imagegalleryapi.access");
+                    
+                    options.Scope.Add("offline_access");
 
                     //Because it is not in the Microsoft map 
                     options.ClaimActions.MapJsonKey(claimType: "role", jsonKey: "role"); // for having 2 or more roles
