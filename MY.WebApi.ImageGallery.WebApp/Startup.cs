@@ -43,7 +43,7 @@ namespace MY.WebApi.ImageGallery.WebApp
                     options.Authority = "https://localhost:6001/";
                     //check audience token(aud) equal to imagegalleryapi
                     options.ApiName = "imagegalleryapi";
-                    // options.ApiSecret = "apisecret";
+                    options.ApiSecret = "APISecret";
                 });
             services.AddAuthorization(option =>
             {

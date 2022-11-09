@@ -32,7 +32,7 @@ namespace MY.ImageGallery.MvcClient.WebApp.Controllers
             _httpClient = httpClient;
         }
 
-        [Authorize(Policy= "CanOrderFrame")]
+        [Authorize(Policy = "CanOrderFrame")]
         public async Task<IActionResult> OrderFrame()
         {
             var disco = await _httpClient.GetDiscoveryDocumentAsync(_configuration["IDPBaseAddress"]);
@@ -179,9 +179,49 @@ namespace MY.ImageGallery.MvcClient.WebApp.Controllers
             {
                 RedirectUri = "https://localhost:5076/welcome"
             };
-
+             await RevokeTokens();
+             
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             await HttpContext.SignOutAsync("oidc", prop);
+        }
+
+        private async Task RevokeTokens()
+        {
+            var disco = await _httpClient.GetDiscoveryDocumentAsync(_configuration["IDPBaseAddress"]);
+
+            var access_token = await HttpContext.GetTokenAsync(OpenIdConnectParameterNames.AccessToken);
+            if (!string.IsNullOrWhiteSpace(access_token))
+            {
+                var response = await _httpClient.RevokeTokenAsync(new TokenRevocationRequest()
+                {
+                    Address = disco.RevocationEndpoint,
+                    ClientId = _configuration["clientId"],
+                    ClientSecret = _configuration["ClientSecret"],
+                    Token = access_token
+                });
+
+                if (response.IsError)
+                {
+                    throw new Exception("Problem accessing the TokenRevocation endpoint.", response.Exception);
+                }
+            }
+
+            var refresh_token = await HttpContext.GetTokenAsync(OpenIdConnectParameterNames.RefreshToken);
+            if (!string.IsNullOrWhiteSpace(refresh_token))
+            {
+                var response = await _httpClient.RevokeTokenAsync(new TokenRevocationRequest()
+                {
+                    Address = disco.RevocationEndpoint,
+                    ClientId = _configuration["clientId"],
+                    ClientSecret = _configuration["ClientSecret"],
+                    Token = refresh_token
+                });
+
+                if (response.IsError)
+                {
+                    throw new Exception("Problem accessing the TokenRevocation endpoint.", response.Exception);
+                }
+            }
         }
     }
 }
