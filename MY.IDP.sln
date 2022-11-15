@@ -13,21 +13,29 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebApi", "WebApi", "{BD7450
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IDP", "IDP", "{098938D2-489B-47E4-97C5-568ED231ACA0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MY.WebApi.ImageGallery.WebApp", "MY.WebApi.ImageGallery.WebApp\MY.WebApi.ImageGallery.WebApp.csproj", "{3583E8A2-99A8-4B21-8732-B851279B8FD0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MY.WebApi.ImageGallery.WebApp", "MY.WebApi.ImageGallery.WebApp\MY.WebApi.ImageGallery.WebApp.csproj", "{3583E8A2-99A8-4B21-8732-B851279B8FD0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MY.WebApi.ImageGallery.Services", "MY.WebApi.ImageGallery.Services\MY.WebApi.ImageGallery.Services.csproj", "{1334C5FB-C2C3-4B31-99E0-2624AD91192E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MY.WebApi.ImageGallery.Services", "MY.WebApi.ImageGallery.Services\MY.WebApi.ImageGallery.Services.csproj", "{1334C5FB-C2C3-4B31-99E0-2624AD91192E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MY.WebApi.ImageGallery.Models", "MY.WebApi.ImageGallery.Models\MY.WebApi.ImageGallery.Models.csproj", "{3D7CDEDF-8A89-4EE2-B548-1D19B3BFBBD9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MY.WebApi.ImageGallery.Models", "MY.WebApi.ImageGallery.Models\MY.WebApi.ImageGallery.Models.csproj", "{3D7CDEDF-8A89-4EE2-B548-1D19B3BFBBD9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MY.WebApi.ImageGallery.Mappings", "MY.WebApi.ImageGallery.Mappings\MY.WebApi.ImageGallery.Mappings.csproj", "{4DD1FEFE-7124-425A-8AD1-790CB3B9FF49}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MY.WebApi.ImageGallery.Mappings", "MY.WebApi.ImageGallery.Mappings\MY.WebApi.ImageGallery.Mappings.csproj", "{4DD1FEFE-7124-425A-8AD1-790CB3B9FF49}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MY.WebApi.ImageGallery.DomainClasses", "MY.WebApi.ImageGallery.DomainClasses\MY.WebApi.ImageGallery.DomainClasses.csproj", "{8973FEEC-FD1A-4AB8-BAAF-743065441F3D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MY.WebApi.ImageGallery.DomainClasses", "MY.WebApi.ImageGallery.DomainClasses\MY.WebApi.ImageGallery.DomainClasses.csproj", "{8973FEEC-FD1A-4AB8-BAAF-743065441F3D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MY.WebApi.ImageGallery.DataLayer", "MY.WebApi.ImageGallery.DataLayer\MY.WebApi.ImageGallery.DataLayer.csproj", "{37D21CEC-6E5B-4814-8E6B-A6B7F93EB81D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MY.WebApi.ImageGallery.DataLayer", "MY.WebApi.ImageGallery.DataLayer\MY.WebApi.ImageGallery.DataLayer.csproj", "{37D21CEC-6E5B-4814-8E6B-A6B7F93EB81D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MY.ImageGallery.MvcClient.ViewModels", "MY.ImageGallery.MvcClient.ViewModels\MY.ImageGallery.MvcClient.ViewModels.csproj", "{6F0E5691-808F-456A-9DFD-2A9FAE5935BD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MY.ImageGallery.MvcClient.ViewModels", "MY.ImageGallery.MvcClient.ViewModels\MY.ImageGallery.MvcClient.ViewModels.csproj", "{6F0E5691-808F-456A-9DFD-2A9FAE5935BD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MY.ImageGallery.MvcClient.Services", "MY.ImageGallery.MvcClient.Services\MY.ImageGallery.MvcClient.Services.csproj", "{1B9BA9F2-291E-4BA6-920C-8C96A377227B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MY.ImageGallery.MvcClient.Services", "MY.ImageGallery.MvcClient.Services\MY.ImageGallery.MvcClient.Services.csproj", "{1B9BA9F2-291E-4BA6-920C-8C96A377227B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MY.IDP.DomainClass", "MY.IDP.DomainClass\MY.IDP.DomainClass.csproj", "{BDB931CF-567E-4DA3-B6F5-B65C7A222464}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MY.IDP.DataLayer", "MY.IDP.DataLayer\MY.IDP.DataLayer.csproj", "{37784D4A-7997-476C-A93A-B2F09C41A897}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MY.IDP.Common", "MY.IDP.Common\MY.IDP.Common.csproj", "{EFB7ECD7-F796-4488-B366-30FDF483EAB6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MY.IDP.Services", "MY.IDP.Services\MY.IDP.Services.csproj", "{723741A8-82E7-4E59-B228-63340B79A26E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -75,6 +83,22 @@ Global
 		{1B9BA9F2-291E-4BA6-920C-8C96A377227B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1B9BA9F2-291E-4BA6-920C-8C96A377227B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1B9BA9F2-291E-4BA6-920C-8C96A377227B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BDB931CF-567E-4DA3-B6F5-B65C7A222464}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BDB931CF-567E-4DA3-B6F5-B65C7A222464}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BDB931CF-567E-4DA3-B6F5-B65C7A222464}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BDB931CF-567E-4DA3-B6F5-B65C7A222464}.Release|Any CPU.Build.0 = Release|Any CPU
+		{37784D4A-7997-476C-A93A-B2F09C41A897}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{37784D4A-7997-476C-A93A-B2F09C41A897}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{37784D4A-7997-476C-A93A-B2F09C41A897}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{37784D4A-7997-476C-A93A-B2F09C41A897}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EFB7ECD7-F796-4488-B366-30FDF483EAB6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EFB7ECD7-F796-4488-B366-30FDF483EAB6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EFB7ECD7-F796-4488-B366-30FDF483EAB6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EFB7ECD7-F796-4488-B366-30FDF483EAB6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{723741A8-82E7-4E59-B228-63340B79A26E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{723741A8-82E7-4E59-B228-63340B79A26E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{723741A8-82E7-4E59-B228-63340B79A26E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{723741A8-82E7-4E59-B228-63340B79A26E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -90,6 +114,10 @@ Global
 		{37D21CEC-6E5B-4814-8E6B-A6B7F93EB81D} = {BD745006-3C07-473B-9672-BCD373225572}
 		{6F0E5691-808F-456A-9DFD-2A9FAE5935BD} = {AAC1235F-9718-48D3-8DDF-331C0C3EB680}
 		{1B9BA9F2-291E-4BA6-920C-8C96A377227B} = {AAC1235F-9718-48D3-8DDF-331C0C3EB680}
+		{BDB931CF-567E-4DA3-B6F5-B65C7A222464} = {098938D2-489B-47E4-97C5-568ED231ACA0}
+		{37784D4A-7997-476C-A93A-B2F09C41A897} = {098938D2-489B-47E4-97C5-568ED231ACA0}
+		{EFB7ECD7-F796-4488-B366-30FDF483EAB6} = {098938D2-489B-47E4-97C5-568ED231ACA0}
+		{723741A8-82E7-4E59-B228-63340B79A26E} = {098938D2-489B-47E4-97C5-568ED231ACA0}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2EBADC3C-0E84-4047-8E24-F39CE589C427}
