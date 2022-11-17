@@ -1,4 +1,7 @@
-﻿using MY.IDP.Settings;
+﻿using Microsoft.EntityFrameworkCore;
+using MY.IDP.DataLayer.Context;
+using MY.IDP.Services;
+using MY.IDP.Settings;
 
 namespace MY.IDP
 {
@@ -13,6 +16,9 @@ namespace MY.IDP
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddScoped<IUserService, UsersService>();
+            services.AddScoped<IUnitOfWork, ApplicationDbContext>();
+            
             services.AddMvc(options => options.EnableEndpointRouting = false);
 
             services.AddIdentityServer()
@@ -31,11 +37,26 @@ namespace MY.IDP
                 app.UseExceptionHandler("/Error");
                 app.UseHsts();
             }
+            InitializeDb(app);
 
             app.UseIdentityServer();
             app.UseStaticFiles();
             app.UseMvcWithDefaultRoute();
             app.Run();
+        }
+
+        private static void InitializeDb(IApplicationBuilder app)
+        {
+            //service locator pattern
+            
+            var scopeFactory = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>();
+            using (var scope=scopeFactory.CreateScope())
+            {
+                using (var context=scope.ServiceProvider.GetService<ApplicationDbContext>())
+                {
+                    context?.Database.Migrate();
+                }
+            }
         }
     }
 }

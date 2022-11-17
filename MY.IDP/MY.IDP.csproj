@@ -10,4 +10,9 @@
     <PackageReference Include="IdentityServer4" Version="4.1.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\MY.IDP.DataLayer\MY.IDP.DataLayer.csproj" />
+    <ProjectReference Include="..\MY.IDP.Services\MY.IDP.Services.csproj" />
+  </ItemGroup>
+
 </Project>

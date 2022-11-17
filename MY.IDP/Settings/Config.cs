@@ -138,7 +138,7 @@ namespace MY.IDP.Settings
                     {
                         new Secret("secret".Sha256())
                     },
-                    RequireConsent = true,
+                    // RequireConsent = true,
                     RequirePkce = false,
                 }
             };
