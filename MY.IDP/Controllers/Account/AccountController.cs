@@ -14,6 +14,7 @@ using IdentityServerHost.Quickstart.UI;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using MY.IDP.Services;
 
 namespace MY.IDP.Controllers.Account
 {
@@ -27,6 +28,8 @@ namespace MY.IDP.Controllers.Account
     public class AccountController : Controller
     {
         private readonly TestUserStore _users;
+        private readonly IUserService _usersService;
+
         private readonly IIdentityServerInteractionService _interaction;
         private readonly IClientStore _clientStore;
         private readonly IAuthenticationSchemeProvider _schemeProvider;
@@ -37,6 +40,7 @@ namespace MY.IDP.Controllers.Account
             IClientStore clientStore,
             IAuthenticationSchemeProvider schemeProvider,
             IEventService events,
+            IUserService userService,
             TestUserStore users = null)
         {
             // if the TestUserStore is not in DI, then we'll just use the global users collection
@@ -47,6 +51,7 @@ namespace MY.IDP.Controllers.Account
             _clientStore = clientStore;
             _schemeProvider = schemeProvider;
             _events = events;
+            _usersService = userService;
         }
 
         /// <summary>
@@ -107,9 +112,9 @@ namespace MY.IDP.Controllers.Account
             if (ModelState.IsValid)
             {
                 // validate username/password against in-memory store
-                if (_users.ValidateCredentials(model.Username, model.Password))
+                if (await _usersService.AreUserCredentialsValidAsync(model.Username, model.Password))
                 {
-                    var user = _users.FindByUsername(model.Username);
+                    var user = await _usersService.GetUserByUsernameAsync(model.Username);
                     await _events.RaiseAsync(new UserLoginSuccessEvent(user.Username, user.SubjectId, user.Username, clientId: context?.Client.ClientId));
 
                     // only set explicit expiration here if user chooses "remember me". 

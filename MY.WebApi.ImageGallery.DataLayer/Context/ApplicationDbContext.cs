@@ -15,8 +15,8 @@ namespace MY.WebApi.ImageGallery.DataLayer.Context
         
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            base.OnModelCreating(modelBuilder);
-            modelBuilder.ApplyConfiguration(new ImageConfiguration());
+             base.OnModelCreating(modelBuilder);
+            // modelBuilder.ApplyConfiguration(new ImageConfiguration());
         }
     }
 }

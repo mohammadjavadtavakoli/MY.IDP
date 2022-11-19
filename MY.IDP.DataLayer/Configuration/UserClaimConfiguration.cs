@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using MY.IDP.DomainClass;
 
-namespace MY.IDP.DataLayer
+namespace MY.IDP.DataLayer.Configuration
 {
   public class UserClaimConfiguration : IEntityTypeConfiguration<UserClaim>
     {

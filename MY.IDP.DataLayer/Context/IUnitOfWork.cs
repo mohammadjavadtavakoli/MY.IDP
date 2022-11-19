@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace MY.IDP.Services
+namespace MY.IDP.DataLayer.Context
 {
     public interface IUnitOfWork:IDisposable
     {
