@@ -20,9 +20,10 @@ namespace MY.IDP.Services
             context.IssuedClaims = claimsForUser.Select(c => new Claim(c.ClaimType, c.ClaimValue)).ToList();
         }
 
-        public Task IsActiveAsync(IsActiveContext context)
+        public async Task IsActiveAsync(IsActiveContext context)
         {
-            throw new NotImplementedException();
+            var subjectId = context.Subject.GetSubjectId();
+            context.IsActive = await _userService.IsUserActiveAsync(subjectId);
         }
     }
 }
