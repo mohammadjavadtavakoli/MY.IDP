@@ -22,4 +22,5 @@
     <ProjectReference Include="..\MY.IDP.DomainClass\MY.IDP.DomainClass.csproj" />
   </ItemGroup>
 
+  
 </Project>

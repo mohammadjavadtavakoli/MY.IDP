@@ -21,8 +21,8 @@ namespace MY.IDP.DataLayer
         {
             base.OnModelCreating(modelBuilder);
 
-            // modelBuilder.ApplyConfiguration(new UserConfiguration());
-            // modelBuilder.ApplyConfiguration(new UserClaimConfiguration());
+             modelBuilder.ApplyConfiguration(new UserConfiguration());
+             modelBuilder.ApplyConfiguration(new UserClaimConfiguration());
         }
     }
 }
